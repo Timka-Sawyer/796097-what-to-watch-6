@@ -1,7 +1,7 @@
 # Личный проект «Что посмотреть» [![Build status][travis-image]][travis-url]
 
 * Студент: [Тимур Мирхайдаров](https://up.htmlacademy.ru/react/6/user/796097).
-* Наставник: `Неизвестно`.
+* Наставник: [Николай Загорный](https://htmlacademy.ru/profile/id452233).
 
 ---
 
