@@ -1,6 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import {useHistory} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
-const Film = () => {
+const Film = (props) => {
+  const history = useHistory();
+  const {id} = useParams();
+  const thisFilm = props.films.find((film) => film.id === +id);
   return (
     <React.Fragment>
       <div>
@@ -52,25 +59,25 @@ const Film = () => {
             </header>
             <div className="movie-card__wrap">
               <div className="movie-card__desc">
-                <h2 className="movie-card__title">The Grand Budapest Hotel</h2>
+                <h2 className="movie-card__title">{thisFilm.name}</h2>
                 <p className="movie-card__meta">
-                  <span className="movie-card__genre">Drama</span>
-                  <span className="movie-card__year">2014</span>
+                  <span className="movie-card__genre">{thisFilm.genre}</span>
+                  <span className="movie-card__year">{thisFilm.released}</span>
                 </p>
                 <div className="movie-card__buttons">
-                  <button className="btn btn--play movie-card__button" type="button">
+                  <button className="btn btn--play movie-card__button" type="button" onClick={() => history.push(`/player/${thisFilm.id}`)}>
                     <svg viewBox="0 0 19 19" width={19} height={19}>
                       <use xlinkHref="#play-s" />
                     </svg>
                     <span>Play</span>
                   </button>
-                  <button className="btn btn--list movie-card__button" type="button">
+                  <button className="btn btn--list movie-card__button" type="button" >
                     <svg viewBox="0 0 19 20" width={19} height={20}>
                       <use xlinkHref="#add" />
                     </svg>
                     <span>My list</span>
                   </button>
-                  <a href="add-review.html" className="btn movie-card__button">Add review</a>
+                  <Link to={`/films/${thisFilm.id}/review`} className="btn movie-card__button">Add review</Link>
                 </div>
               </div>
             </div>
@@ -78,7 +85,7 @@ const Film = () => {
           <div className="movie-card__wrap movie-card__translate-top">
             <div className="movie-card__info">
               <div className="movie-card__poster movie-card__poster--big">
-                <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width={218} height={327} />
+                <img src={thisFilm.posterImage} alt="The Grand Budapest Hotel poster" width={218} height={327} />
               </div>
               <div className="movie-card__desc">
                 <nav className="movie-nav movie-card__nav">
@@ -95,17 +102,16 @@ const Film = () => {
                   </ul>
                 </nav>
                 <div className="movie-rating">
-                  <div className="movie-rating__score">8,9</div>
+                  <div className="movie-rating__score">{thisFilm.rating}</div>
                   <p className="movie-rating__meta">
                     <span className="movie-rating__level">Very good</span>
-                    <span className="movie-rating__count">240 ratings</span>
+                    <span className="movie-rating__count">{thisFilm.scoresCount} ratings</span>
                   </p>
                 </div>
                 <div className="movie-card__text">
-                  <p>In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave&#39;s friend and protege.</p>
-                  <p>Gustave prides himself on providing first-class service to the hotel&#39;s guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave&#39;s lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.</p>
-                  <p className="movie-card__director"><strong>Director: Wes Andreson</strong></p>
-                  <p className="movie-card__starring"><strong>Starring: Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other</strong></p>
+                  <p>{thisFilm.description}</p>
+                  <p className="movie-card__director"><strong>Director: {thisFilm.director}</strong></p>
+                  <p className="movie-card__starring"><strong>Starring: {thisFilm.starring} {` `} and other</strong></p>
                 </div>
               </div>
             </div>
@@ -166,6 +172,16 @@ const Film = () => {
 
     </React.Fragment>
   );
+};
+
+Film.propTypes = {
+  films: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    genre: PropTypes.string,
+    released: PropTypes.number,
+    previewImage: PropTypes.string,
+  })),
 };
 
 export default Film;

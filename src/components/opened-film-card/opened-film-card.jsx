@@ -8,10 +8,10 @@ const OpenedFilmCard = (props) => {
         <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width={218} height={327} />
       </div>
       <div className="movie-card__desc">
-        <h2 className="movie-card__title">{props.film.title}</h2>
+        <h2 className="movie-card__title">{props.film.name}</h2>
         <p className="movie-card__meta">
           <span className="movie-card__genre">{props.film.genre}</span>
-          <span className="movie-card__year">{props.film.year}</span>
+          <span className="movie-card__year">{props.film.released}</span>
         </p>
         <div className="movie-card__buttons">
           <button className="btn btn--play movie-card__button" type="button">
@@ -34,9 +34,9 @@ const OpenedFilmCard = (props) => {
 
 OpenedFilmCard.propTypes = {
   film: PropTypes.shape({
-    title: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired
+    released: PropTypes.number.isRequired
   }),
 };
 

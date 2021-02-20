@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FilmCard from '../film-card/film-card';
+import FilmList from '../film-list/film-list';
 import OpenedFilmCard from '../opened-film-card/opened-film-card';
 
 const MainScreen = (props) => {
@@ -90,9 +90,7 @@ const MainScreen = (props) => {
               <a href="#" className="catalog__genres-link">Thrillers</a>
             </li>
           </ul>
-          <div className="catalog__movies-list">
-            {props.films.slice(1, props.films.lenght).map((el, i) => <FilmCard key={el.title + i} film={el} />)}
-          </div>
+          <FilmList films={props.films}/>
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
           </div>
@@ -116,7 +114,7 @@ const MainScreen = (props) => {
 
 MainScreen.propTypes = {
   films: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
     genre: PropTypes.string,
     year: PropTypes.number
   })),

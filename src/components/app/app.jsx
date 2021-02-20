@@ -18,16 +18,16 @@ const App = (props) => {
           <SignIn />
         </Route>
         <Route exact path="/mylist">
-          <MyList />
+          <MyList films={props.films} />
         </Route>
         <Route exact path="/films/:id">
-          <Film />
+          <Film films={props.films} />
         </Route>
         <Route exact path="/films/:id/review">
-          <AddReview />
+          <AddReview films={props.films} />
         </Route>
         <Route exact path="/player/:id">
-          <Player />
+          <Player films={props.films} />
         </Route>
         <Route exact path="/">
           <MainScreen films={props.films} />
@@ -40,7 +40,8 @@ const App = (props) => {
 
 App.propTypes = {
   films: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
     genre: PropTypes.string,
     year: PropTypes.number
   })),
