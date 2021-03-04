@@ -1,23 +1,19 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import FilmCard from '../film-card/film-card';
 
 const FilmList = (props) => {
-  const [activeFilmState, setActiveFilmState] = useState(0);
-  const handleOnMouseOver = (evt) => {
-    setActiveFilmState(evt.target.dataset.id);
-  };
+
 
   return (
     <React.Fragment>
-      <div className="catalog__movies-list" data-active={activeFilmState}>
+      <div className="catalog__movies-list">
         {
           props.films.map((el) =>
             <FilmCard
+              id={el.id}
               key={el.name + el.id}
               film={el}
-              id={el.id}
-              onMouseOver={handleOnMouseOver}
             />)
         }
       </div>
